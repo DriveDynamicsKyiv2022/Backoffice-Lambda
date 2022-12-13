@@ -11,12 +11,12 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 
-public class MongoOrderDao implements IOrderDao {
+public class OrderDaoMongo implements IOrderDao {
     MongoClient mongoClient;
     ObjectMapper objectMapper;
     MongoCollection<Document> collection;
 
-    public MongoOrderDao(MongoClient mongoClient, ObjectMapper objectMapper) {
+    public OrderDaoMongo(MongoClient mongoClient, ObjectMapper objectMapper) {
         this.mongoClient = mongoClient;
         this.objectMapper = objectMapper;
         MongoDatabase mongoDatabase = mongoClient.getDatabase("backoffice_db");

@@ -3,10 +3,10 @@ package com.griddynamics;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.griddynamics.backoffice.dto.OrderDto;
 import com.griddynamics.component.DaggerLambdaHandlerComponent;
 import com.griddynamics.component.DaggerLocalLambdaHandlerComponent;
 import com.griddynamics.model.Order;
+import com.griddynamics.order.OrderDto;
 import com.griddynamics.service.IOrderService;
 import com.griddynamics.util.OrderUtil;
 

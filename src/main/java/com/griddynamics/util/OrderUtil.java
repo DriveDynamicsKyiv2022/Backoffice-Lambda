@@ -1,38 +1,23 @@
 package com.griddynamics.util;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.griddynamics.backoffice.dto.OrderDto;
 import com.griddynamics.model.Order;
-import org.bson.Document;
+import com.griddynamics.order.OrderDto;
 import org.springframework.lang.Nullable;
 
+import java.time.ZoneOffset;
 import java.util.UUID;
 
 public class OrderUtil {
-    public static Order parseOrderFromDocument(Document document, ObjectMapper objectMapper) {
-        document.remove("_id");
-        document.remove("_class");
-        try {
-            return objectMapper.readValue(document.toJson(), Order.class);
-        } catch (JsonMappingException e) {
-            throw new RuntimeException(e);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public static Order getEntity(OrderDto orderDto) {
         String orderId = getOrGenerateId(orderDto.getOrderId());
         return Order.builder()
                 .orderId(orderId)
-                .carId(orderDto.getCarId())
-                .startDateTime(orderDto.getStartDateTime())
-                .endDateTime(orderDto.getEndDateTime())
-                .price(orderDto.getPrice())
-                .tariffId(orderDto.getTariffId())
                 .userId(orderDto.getUserId())
+                .carId(orderDto.getCarId())
+                .tariffId(orderDto.getTariffId())
+                .carBodyStyle(orderDto.getCarBodyStyle())
+                .endDateTimestamp(orderDto.getEndDateTime().toEpochSecond(ZoneOffset.UTC))
+                .startDateTimestamp(orderDto.getStartDateTime().toEpochSecond(ZoneOffset.UTC))
                 .build();
     }
 

@@ -11,7 +11,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-                sh 'aws lambda update-function-code --function-name ssm-lambda --zip-file fileb://target/backoffice-order-service-lambda-1.1-SNAPSHOT-jar-with-dependencies.jar --region eu-central-1'
+                sh 'aws lambda update-function-code --function-name ssm-lambda --zip-file fileb://target/backoffice-order-service-lambda-1.1-SNAPSHOT-jar-with-dependencies.jar'
             }
         }
     }

@@ -13,7 +13,6 @@ public class ConfigModule {
     @Singleton
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
         return objectMapper;
     }
 

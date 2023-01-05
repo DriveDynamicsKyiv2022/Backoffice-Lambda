@@ -19,7 +19,7 @@ public class ConfigModule {
         JavaTimeModule javaTimeModule = new JavaTimeModule();
         LocalDateTimeDeserializer localDateTimeDeserializer = new
                 LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ"));
-        javaTimeModule.addDeserializer(LocalDateTime.class, localDateTimeDeserializer);
+//        javaTimeModule.addDeserializer(LocalDateTime.class, localDateTimeDeserializer);
         return new ObjectMapper()
                 .registerModule(javaTimeModule)
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);

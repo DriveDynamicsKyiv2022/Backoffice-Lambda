@@ -16,8 +16,8 @@
 
     <repositories>
         <repository>
-            <id>space-grid-go-shared-objects</id>
-            <url>https://maven.pkg.jetbrains.space/java-internship/p/drivedynamic/grid-go-shared-objects</url>
+            <id>space-drive-dynamic-shared-objects</id>
+            <url>https://maven.pkg.jetbrains.space/java-internship/p/drivedynamic/drive-dynamic-shared-objects</url>
         </repository>
     </repositories>
 

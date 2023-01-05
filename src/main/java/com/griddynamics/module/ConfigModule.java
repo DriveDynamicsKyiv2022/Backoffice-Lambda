@@ -18,7 +18,7 @@ public class ConfigModule {
     public ObjectMapper objectMapper() {
         JavaTimeModule javaTimeModule = new JavaTimeModule();
         LocalDateTimeDeserializer localDateTimeDeserializer = new
-                LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
         javaTimeModule.addDeserializer(LocalDateTime.class, localDateTimeDeserializer);
         return new ObjectMapper()
                 .registerModule(javaTimeModule)

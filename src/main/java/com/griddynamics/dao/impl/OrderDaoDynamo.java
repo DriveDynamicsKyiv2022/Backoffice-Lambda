@@ -18,11 +18,6 @@ public class OrderDaoDynamo implements IOrderDao {
     }
 
     @Override
-    public Order update(Order order) {
-        return null;
-    }
-
-    @Override
     public Order find(String id) {
         Order order = dynamoDBMapper.load(Order.class, id);
         if(order == null) {

@@ -4,11 +4,12 @@ import com.griddynamics.model.Order;
 import com.griddynamics.order.OrderDto;
 import org.springframework.lang.Nullable;
 
+import javax.validation.Valid;
 import java.time.ZoneOffset;
 import java.util.UUID;
 
 public class OrderUtil {
-    public static Order getEntity(OrderDto orderDto) {
+    public static Order getEntity(@Valid OrderDto orderDto) {
         String orderId = getOrGenerateId(orderDto.getOrderId());
         return Order.builder()
                 .orderId(orderId)

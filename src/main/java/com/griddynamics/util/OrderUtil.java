@@ -16,6 +16,7 @@ public class OrderUtil {
                 .userId(orderDto.getUserId())
                 .carId(orderDto.getCarId())
                 .tariffId(orderDto.getTariffId())
+                .price(orderDto.getPrice())
                 .carBodyStyle(orderDto.getCarBodyStyle())
                 .endDateTimestamp(orderDto.getEndDateTime().toEpochSecond(ZoneOffset.UTC))
                 .startDateTimestamp(orderDto.getStartDateTime().toEpochSecond(ZoneOffset.UTC))

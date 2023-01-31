@@ -8,6 +8,6 @@ public class LocalTest {
         System.setProperty("env", "local");
         LambdaHandler lambdaHandler = new LambdaHandler();
         InputStream is = LocalTest.class.getClassLoader().getResourceAsStream("input.json");
-        lambdaHandler.handleRequest(is, null, null);
+        lambdaHandler.handleRequest(null, null);
     }
 }

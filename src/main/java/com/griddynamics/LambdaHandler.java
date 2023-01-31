@@ -2,6 +2,7 @@ package com.griddynamics;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.amazonaws.services.lambda.runtime.events.SQSEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.griddynamics.component.DaggerLambdaHandlerComponent;
 import com.griddynamics.component.DaggerLocalLambdaHandlerComponent;
@@ -40,7 +41,9 @@ public class LambdaHandler implements RequestStreamHandler {
             sb.append((char) ch);
         }
         System.out.println(sb);
-        OrderDto orderDto = objectMapper.readValue(inputStream, OrderDto.class);
+        SQSEvent sqsEvent = objectMapper.readValue(inputStream, SQSEvent.class);
+        String messageBody = sqsEvent.getRecords().get(0).getBody();
+        OrderDto orderDto = objectMapper.readValue(messageBody, OrderDto.class);
         Order order = OrderUtil.getEntity(orderDto);
         order = orderService.addOrder(order);
         System.out.println(order.getTariffId());

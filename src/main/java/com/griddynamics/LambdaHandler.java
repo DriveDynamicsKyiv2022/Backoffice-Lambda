@@ -36,11 +36,6 @@ public class LambdaHandler implements RequestStreamHandler {
     @Override
     public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
         System.out.println("----handling request");
-        StringBuilder sb = new StringBuilder();
-        for (int ch; (ch = inputStream.read()) != -1; ) {
-            sb.append((char) ch);
-        }
-        System.out.println(sb);
         SQSEvent sqsEvent = objectMapper.readValue(inputStream, SQSEvent.class);
         String messageBody = sqsEvent.getRecords().get(0).getBody();
         OrderDto orderDto = objectMapper.readValue(messageBody, OrderDto.class);

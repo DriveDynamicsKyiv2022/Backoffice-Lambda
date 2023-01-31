@@ -1,8 +1,9 @@
 package com.griddynamics;
 
 import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.SQSEvent;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.griddynamics.component.DaggerLambdaHandlerComponent;
 import com.griddynamics.component.DaggerLocalLambdaHandlerComponent;
@@ -12,11 +13,8 @@ import com.griddynamics.service.IOrderService;
 import com.griddynamics.util.OrderUtil;
 
 import javax.inject.Inject;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
-public class LambdaHandler implements RequestStreamHandler {
+public class LambdaHandler implements RequestHandler<SQSEvent, Void> {
     @Inject
     IOrderService orderService;
 
@@ -34,18 +32,18 @@ public class LambdaHandler implements RequestStreamHandler {
     }
 
     @Override
-    public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
-        System.out.println("----handling request");
-        StringBuilder sb = new StringBuilder();
-        for (int ch; (ch = inputStream.read()) != -1; ) {
-            sb.append((char) ch);
-        }
-        System.out.println(sb);
-        SQSEvent sqsEvent = objectMapper.readValue(sb.toString(), SQSEvent.class);
+    public Void handleRequest(SQSEvent sqsEvent, Context context) {
         String messageBody = sqsEvent.getRecords().get(0).getBody();
-        OrderDto orderDto = objectMapper.readValue(messageBody, OrderDto.class);
+        OrderDto orderDto = null;
+        try {
+            orderDto = objectMapper.readValue(messageBody, OrderDto.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         Order order = OrderUtil.getEntity(orderDto);
         order = orderService.addOrder(order);
         System.out.println(order.getTariffId());
+        return null;
     }
+
 }

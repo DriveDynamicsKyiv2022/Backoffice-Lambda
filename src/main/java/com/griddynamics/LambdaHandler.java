@@ -35,6 +35,11 @@ public class LambdaHandler implements RequestStreamHandler {
     @Override
     public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
         System.out.println("----handling request");
+        StringBuilder sb = new StringBuilder();
+        for (int ch; (ch = inputStream.read()) != -1; ) {
+            sb.append((char) ch);
+        }
+        System.out.println(sb);
         OrderDto orderDto = objectMapper.readValue(inputStream, OrderDto.class);
         Order order = OrderUtil.getEntity(orderDto);
         order = orderService.addOrder(order);

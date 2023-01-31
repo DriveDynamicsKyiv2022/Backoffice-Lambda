@@ -13,6 +13,7 @@ public class TariffDaoDynamo implements ITariffDao {
 
     @Override
     public boolean tariffExists(String tariffId) {
+        System.out.println("-----tariffId: " + tariffId);
         Item tariff = dynamoDB.getTable("tariffs").getItem("tariffId", tariffId);
         return tariff != null;
     }

@@ -34,8 +34,9 @@ public class LambdaHandler implements RequestHandler<SQSEvent, Void> {
     @Override
     public Void handleRequest(SQSEvent sqsEvent, Context context) {
         String messageBody = sqsEvent.getRecords().get(0).getBody();
-        OrderDto orderDto = null;
+        OrderDto orderDto;
         try {
+            System.out.println("----body: " + messageBody);
             orderDto = objectMapper.readValue(messageBody, OrderDto.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
